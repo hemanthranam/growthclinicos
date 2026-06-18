@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth OS | Clinic Management System</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================
+           CSS VARIABLES (THEME & DESIGN SYSTEM)
+           ========================================== */
+        :root {
+            --primary: #0ea5e9; 
+            --primary-dark: #0284c7;
+            --primary-light: #e0f2fe;
+            --secondary: #0f172a; 
+            --accent: #10b981; 
+            --accent-hover: #059669;
+            
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --text-heading: #0f172a;
+            
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-glow: 0 0 20px rgba(14, 165, 233, 0.15);
+            
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            
+            --transition: all 0.3s ease-in-out;
+        }
+
+        /* ==========================================
+           RESET & BASE
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-heading);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section { padding: 5rem 0; }
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-8 { margin-bottom: 2rem; }
+
+        /* ==========================================
+           BUTTONS & BADGES
+           ========================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary { background-color: var(--primary); color: white; box-shadow: var(--shadow-md); }
+        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-accent { background-color: var(--accent); color: white; box-shadow: var(--shadow-md); }
+        .btn-accent:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-outline { background-color: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background-color: var(--primary-light); }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* ==========================================
+           NAVIGATION
+           ========================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled { box-shadow: var(--shadow-md); }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo i { color: var(--primary); font-size: 1.75rem; }
+
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        .nav-links a { color: var(--text-main); font-weight: 500; transition: var(--transition); }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+
+        /* ==========================================
+           HERO SECTION
+           ========================================== */
+        .hero {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--primary-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); margin-top: 1rem; margin-bottom: 1.5rem; }
+        .hero-content h1 span { color: var(--primary); }
+        .hero-content p { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 480px; }
+        .hero-buttons { display: flex; gap: 1rem; }
+
+        .hero-visual { position: relative; }
+
+        .dashboard-mockup {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+            transition: var(--transition);
+        }
+
+        .dashboard-mockup:hover { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+
+        .dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 1rem;
+        }
+
+        .dash-card {
+            background: var(--bg-body);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* ==========================================
+           ABOUT / FEATURES
+           ========================================== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-5px); }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==========================================
+           SERVICES SECTION
+           ========================================== */
+        .services-section { background-color: var(--bg-card); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem; }
+
+        .service-card {
+            background: var(--bg-body);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card:hover { background: var(--bg-card); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
+        .service-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .service-icon { font-size: 2rem; color: var(--primary); }
+
+        .service-details {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .duration { font-size: 0.875rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; }
+
+        /* ==========================================
+           BOOKING ENGINE (CRM FORM)
+           ========================================== */
+        .booking-section { background-color: var(--secondary); color: white; position: relative; }
+        .booking-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; }
+        .booking-info h2 { color: white; }
+        .booking-info p { color: #94a3b8; }
+
+        .booking-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat h3 { font-size: 2rem; color: var(--primary-light); }
+        .stat p { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .form-container {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-glow);
+            color: var(--text-main);
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group.full { grid-column: 1 / -1; }
+        label { font-weight: 600; font-size: 0.875rem; color: var(--secondary); }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            background-color: var(--bg-body);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            background-color: var(--bg-card);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        /* ==========================================
+           TESTIMONIALS
+           ========================================== */
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .testimonial-card { background: var(--bg-card); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05); }
+        .stars { color: #fbbf24; margin-bottom: 1rem; }
+        .user-info { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+        
+        .avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        /* ==========================================
+           CONTACT & FOOTER
+           ========================================== */
+        .contact-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; }
+        .contact-info-cards { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .contact-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .contact-card i { font-size: 1.5rem; color: var(--primary); background: var(--primary-light); padding: 1rem; border-radius: var(--radius-md); }
+        .map-container { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); height: 100%; min-height: 350px; }
+        .map-container iframe { width: 100%; height: 100%; border: none; }
+
+        footer { background-color: var(--secondary); color: #94a3b8; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.1); }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: white; display: flex; align-items: center; gap: 0.5rem; }
+
+        /* ==========================================
+           UTILITIES & WIDGETS
+           ========================================== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover { transform: scale(1.1); background-color: #1ebe5d; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal-content {
+            background: var(--bg-card);
+            padding: 3rem 2rem;
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: #d1fae5;
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* ==========================================
+           RESPONSIVE DESIGN 
+           ========================================== */
+        @media (max-width: 992px) {
+            .hero-container, .booking-grid, .contact-grid { grid-template-columns: 1fr; }
+            .hero-content { text-align: center; }
+            .hero-content p { margin: 0 auto 2rem; }
+            .hero-buttons { justify-content: center; }
+            .booking-stats { justify-content: center; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .nav-links {
+                position: absolute;
+                top: 5rem;
+                left: 0;
+                width: 100%;
+                background: var(--bg-card);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow-md);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: clip-path 0.3s ease-in-out;
+            }
+            .nav-links.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            .nav-links .btn { width: 100%; margin-top: 1rem; }
+            .form-row { grid-template-columns: 1fr; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-heart-pulse"></i> Growth OS
+            </a>
+            <button class="nav-toggle" id="navToggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#about">Platform</a>
+                <a href="#services">Services</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#contact">Contact</a>
+                <a href="#booking" class="btn btn-primary">Book Appointment</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <span class="badge">Clinic Management System</span>
+                <h1>Automate Appointments. Manage Patients. <span>Grow Faster.</span></h1>
+                <p>Experience the seamless booking flow of Growth OS. A premium, end-to-end platform for modern healthcare and service businesses.</p>
+                <div class="hero-buttons">
+                    <a href="#booking" class="btn btn-accent"><i class="fa-solid fa-calendar-check"></i> Book Demo Appointment</a>
+                    <a href="#services" class="btn btn-outline">Explore Services</a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="dashboard-mockup">
+                    <div class="dash-header">
+                        <div style="font-weight: 700; color: var(--secondary);">Upcoming Appointments</div>
+                        <div class="badge" style="background: #d1fae5; color: var(--accent);">Live Updates</div>
+                    </div>
+                    <div class="dash-card">
+                        <div>
+                            <strong>Sarah Jenkins</strong><br>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Dental Consultation • Today, 10:00 AM</span>
+                        </div>
+                        <i class="fa-solid fa-tooth" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="dash-card">
+                        <div>
+                            <strong>Michael Chen</strong><br>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Physiotherapy • Today, 11:30 AM</span>
+                        </div>
+                        <i class="fa-solid fa-person-walking" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="dash-card" style="opacity: 0.6;">
+                        <div>
+                            <strong>Emma Wilson</strong><br>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Skin Treatment • Tomorrow, 09:00 AM</span>
+                        </div>
+                        <i class="fa-solid fa-spa" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="container">
+            <div class="text-center">
+                <span class="badge mb-4">Why Growth OS?</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Stop missing leads. Start scaling.</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Our intelligent CRM flow replaces manual diaries, automates follow-ups, and provides a premium booking experience for your patients.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Instant Automations</h3>
+                    <p class="mt-2 text-muted">Automatically log new inquiries, send WhatsApp confirmations, and assign staff members without lifting a finger.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>Smart CRM Tracking</h3>
+                    <p class="mt-2 text-muted">View patient history, track recurring visits, and manage internal notes all from one secure dashboard.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h3>Mobile-First Booking</h3>
+                    <p class="mt-2 text-muted">A frictionless, beautiful interface ensuring your clients can book appointments 24/7 from any device.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section services-section" id="services">
+        <div class="container">
+            <div class="text-center">
+                <span class="badge mb-4">Patient Portal Demo</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Select a Service</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Test how your patients will interact with your service offerings. Clean, transparent, and built to convert.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <i class="fa-solid fa-tooth service-icon"></i>
+                        <h3 style="font-size: 1.25rem;">Dental Care</h3>
+                    </div>
+                    <p class="text-muted mb-4">Comprehensive dental checkups, cleaning, cosmetic procedures, and advanced oral health treatments.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fa-regular fa-clock"></i> 45 mins</span>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="prefillBooking('dental')">Book Slot</button>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <i class="fa-solid fa-spa service-icon"></i>
+                        <h3 style="font-size: 1.25rem;">Skin Treatment</h3>
+                    </div>
+                    <p class="text-muted mb-4">Dermatology consultations, acne treatments, anti-aging therapies, and specialized skin rejuvenation.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fa-regular fa-clock"></i> 30 mins</span>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="prefillBooking('skin')">Book Slot</button>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <i class="fa-solid fa-person-walking service-icon"></i>
+                        <h3 style="font-size: 1.25rem;">Physiotherapy</h3>
+                    </div>
+                    <p class="text-muted mb-4">Post-injury rehabilitation, mobility assessments, sports therapy, and chronic pain management plans.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fa-regular fa-clock"></i> 60 mins</span>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="prefillBooking('physio')">Book Slot</button>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <i class="fa-solid fa-stethoscope service-icon"></i>
+                        <h3 style="font-size: 1.25rem;">General Consult</h3>
+                    </div>
+                    <p class="text-muted mb-4">Standard health evaluations, prescription renewals, flu symptoms, and general medical advice.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fa-regular fa-clock"></i> 20 mins</span>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="prefillBooking('general')">Book Slot</button>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <i class="fa-solid fa-heart-pulse service-icon"></i>
+                        <h3 style="font-size: 1.25rem;">Health Checkups</h3>
+                    </div>
+                    <p class="text-muted mb-4">Full body assessments including blood work, vitals screening, and preventive health reporting.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fa-regular fa-clock"></i> 90 mins</span>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="prefillBooking('checkup')">Book Slot</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section booking-section" id="booking">
+        <div class="container">
+            <div class="booking-grid">
+                
+                <div class="booking-info">
+                    <span class="badge mb-4" style="background: rgba(255,255,255,0.1); color: white;">Lead Capture Engine</span>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Book your appointment in seconds.</h2>
+                    <p class="mb-4">This form simulates the data collection process. Data is validated natively, logged to your browser's local storage (mimicking a database save), and triggers our high-conversion success UI.</p>
+                    <p><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 10px;"></i> GDPR Compliant Data Structure</p>
+                    <p><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 10px;"></i> Zero-friction mobile input</p>
+                    <p><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 10px;"></i> Direct CRM pipeline injection</p>
+
+                    <div class="booking-stats">
+                        <div class="stat">
+                            <h3>40%</h3>
+                            <p>More Leads</p>
+                        </div>
+                        <div class="stat">
+                            <h3>0</h3>
+                            <p>Missed Calls</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="mb-4" style="font-size: 1.5rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 1rem;">New Appointment</h3>
+                    
+                    <form id="appointmentForm">
+                        <div class="form-row">
+                            <div class="form-group full">
+                                <label for="patientName">Full Name *</label>
+                                <input type="text" id="patientName" required placeholder="e.g. Jane Doe">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patientPhone">Phone Number *</label>
+                                <input type="tel" id="patientPhone" required placeholder="+1 (555) 000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="patientEmail">Email Address</label>
+                                <input type="email" id="patientEmail" placeholder="jane@example.com">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="serviceType">Service Required *</label>
+                                <select id="serviceType" required>
+                                    <option value="" disabled selected>Select a service...</option>
+                                    <option value="dental">Dental Care</option>
+                                    <option value="skin">Skin Treatment</option>
+                                    <option value="physio">Physiotherapy</option>
+                                    <option value="general">General Consultation</option>
+                                    <option value="checkup">Health Checkups</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="prefDate">Preferred Date *</label>
+                                <input type="date" id="prefDate" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group full">
+                                <label for="visitReason">Reason for Visit *</label>
+                                <textarea id="visitReason" rows="3" required placeholder="Briefly describe your symptoms or requirements..."></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-accent full" style="width: 100%; padding: 1rem; font-size: 1.125rem;">Confirm Appointment</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div class="text-center">
+                <span class="badge mb-4">Patient Feedback</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Trusted by thousands.</h2>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-muted">"Booking an appointment was incredibly smooth. I didn't have to wait on hold, and I got a text confirmation immediately. The clinic staff had all my details ready!"</p>
+                    <div class="user-info">
+                        <div class="avatar">SJ</div>
+                        <div>
+                            <h4 style="font-size: 1rem;">Sarah Jenkins</h4>
+                            <span style="font-size: 0.85rem
