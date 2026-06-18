@@ -567,3 +567,669 @@
            ========================================== */
         .contact-grid {
             display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+        }
+
+        .contact-info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .contact-card i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+        }
+
+        .map-container {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            height: 100%;
+            min-height: 350px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        footer {
+            background-color: var(--secondary);
+            color: #94a3b8;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ==========================================
+           UTILITIES & WIDGETS
+           ========================================== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #1ebe5d;
+        }
+
+        /* Success Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            padding: 3rem 2rem;
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: #d1fae5;
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* ==========================================
+           RESPONSIVE DESIGN (MOBILE FIRST OVERRIDES)
+           ========================================== */
+        @media (max-width: 992px) {
+            .hero-container, .booking-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content {
+                text-align: center;
+            }
+            .hero-content p {
+                margin: 0 auto 2rem;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .booking-stats {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: absolute;
+                top: 5rem;
+                left: 0;
+                width: 100%;
+                background: var(--bg-card);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow-md);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: clip-path 0.3s ease-in-out;
+            }
+            .nav-links.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            .nav-links .btn {
+                width: 100%;
+                margin-top: 1rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-heart-pulse"></i> Growth OS
+            </a>
+            <button class="nav-toggle" id="navToggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#about">Platform</a>
+                <a href="#services">Services</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#contact">Contact</a>
+                <a href="#booking" class="btn btn-primary">Book Appointment</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <span class="badge">Clinic Management System</span>
+                <h1>Automate Appointments. Manage Patients. <span>Grow Faster.</span></h1>
+                <p>Experience the seamless booking flow of Growth OS. A premium, end-to-end platform for modern healthcare and service businesses.</p>
+                <div class="hero-buttons">
+                    <a href="#booking" class="btn btn-accent"><i class="fa-solid fa-calendar-check"></i> Book Demo Appointment</a>
+                    <a href="#services" class="btn btn-outline">Explore Services</a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="dashboard-mockup">
+                    <div class="dash-header">
+                        <div style="font-weight: 700; color: var(--secondary);">Upcoming Appointments</div>
+                        <div class="badge" style="background: #d1fae5; color: var(--accent);">Live Updates</div>
+                    </div>
+                    <div class="dash-card">
+                        <div>
+                            <strong>Sarah Jenkins</strong><br>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Dental Consultation • Today, 10:00 AM</span>
+                        </div>
+                        <i class="fa-solid fa-tooth" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="dash-card">
+                        <div>
+                            <strong>Michael Chen</strong><br>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Physiotherapy • Today, 11:30 AM</span>
+                        </div>
+                        <i class="fa-solid fa-person-walking" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="dash-card" style="opacity: 0.6;">
+                        <div>
+                            <strong>Emma Wilson</strong><br>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Skin Treatment • Tomorrow, 09:00 AM</span>
+                        </div>
+                        <i class="fa-solid fa-spa" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="container">
+            <div class="text-center">
+                <span class="badge mb-4">Why Growth OS?</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Stop missing leads. Start scaling.</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Our intelligent CRM flow replaces manual diaries, automates follow-ups, and provides a premium booking experience for your patients.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Instant Automations</h3>
+                    <p class="mt-2 text-muted">Automatically log new inquiries, send WhatsApp confirmations, and assign staff members without lifting a finger.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>Smart CRM Tracking</h3>
+                    <p class="mt-2 text-muted">View patient history, track recurring visits, and manage internal notes all from one secure dashboard.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h3>Mobile-First Booking</h3>
+                    <p class="mt-2 text-muted">A frictionless, beautiful interface ensuring your clients can book appointments 24/7 from any device.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section services-section" id="services">
+        <div class="container">
+            <div class="text-center">
+                <span class="badge mb-4">Patient Portal Demo</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Select a Service</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Test how your patients will interact with your service offerings. Clean, transparent, and built to convert.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <i class="fa-solid fa-tooth service-icon"></i>
+                        <h3 style="font-size: 1.25rem;">Dental Care</h3>
+                    </div>
+                    <p class="text-muted mb-4">Comprehensive dental checkups, cleaning, cosmetic procedures, and advanced oral health treatments.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fa-regular fa-clock"></i> 45 mins</span>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="prefillBooking('dental')">Book Slot</button>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <i class="fa-solid fa-spa service-icon"></i>
+                        <h3 style="font-size: 1.25rem;">Skin Treatment</h3>
+                    </div>
+                    <p class="text-muted mb-4">Dermatology consultations, acne treatments, anti-aging therapies, and specialized skin rejuvenation.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fa-regular fa-clock"></i> 30 mins</span>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="prefillBooking('skin')">Book Slot</button>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <i class="fa-solid fa-person-walking service-icon"></i>
+                        <h3 style="font-size: 1.25rem;">Physiotherapy</h3>
+                    </div>
+                    <p class="text-muted mb-4">Post-injury rehabilitation, mobility assessments, sports therapy, and chronic pain management plans.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fa-regular fa-clock"></i> 60 mins</span>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="prefillBooking('physio')">Book Slot</button>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <i class="fa-solid fa-stethoscope service-icon"></i>
+                        <h3 style="font-size: 1.25rem;">General Consult</h3>
+                    </div>
+                    <p class="text-muted mb-4">Standard health evaluations, prescription renewals, flu symptoms, and general medical advice.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fa-regular fa-clock"></i> 20 mins</span>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="prefillBooking('general')">Book Slot</button>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <i class="fa-solid fa-heart-pulse service-icon"></i>
+                        <h3 style="font-size: 1.25rem;">Health Checkups</h3>
+                    </div>
+                    <p class="text-muted mb-4">Full body assessments including blood work, vitals screening, and preventive health reporting.</p>
+                    <div class="service-details">
+                        <span class="duration"><i class="fa-regular fa-clock"></i> 90 mins</span>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="prefillBooking('checkup')">Book Slot</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section booking-section" id="booking">
+        <div class="container">
+            <div class="booking-grid">
+                
+                <div class="booking-info">
+                    <span class="badge mb-4" style="background: rgba(255,255,255,0.1); color: white;">Lead Capture Engine</span>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Book your appointment in seconds.</h2>
+                    <p class="mb-4">This form simulates the data collection process. Data is validated natively, logged to your browser's local storage (mimicking a database save), and triggers our high-conversion success UI.</p>
+                    <p><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 10px;"></i> GDPR Compliant Data Structure</p>
+                    <p><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 10px;"></i> Zero-friction mobile input</p>
+                    <p><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 10px;"></i> Direct CRM pipeline injection</p>
+
+                    <div class="booking-stats">
+                        <div class="stat">
+                            <h3>40%</h3>
+                            <p>More Leads</p>
+                        </div>
+                        <div class="stat">
+                            <h3>0</h3>
+                            <p>Missed Calls</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="mb-4" style="font-size: 1.5rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 1rem;">New Appointment</h3>
+                    
+                    <form id="appointmentForm">
+                        <div class="form-row">
+                            <div class="form-group full">
+                                <label for="patientName">Full Name *</label>
+                                <input type="text" id="patientName" required placeholder="e.g. Jane Doe">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patientPhone">Phone Number *</label>
+                                <input type="tel" id="patientPhone" required placeholder="+1 (555) 000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="patientEmail">Email Address</label>
+                                <input type="email" id="patientEmail" placeholder="jane@example.com">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="serviceType">Service Required *</label>
+                                <select id="serviceType" required>
+                                    <option value="" disabled selected>Select a service...</option>
+                                    <option value="dental">Dental Care</option>
+                                    <option value="skin">Skin Treatment</option>
+                                    <option value="physio">Physiotherapy</option>
+                                    <option value="general">General Consultation</option>
+                                    <option value="checkup">Health Checkups</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="prefDate">Preferred Date *</label>
+                                <input type="date" id="prefDate" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group full">
+                                <label for="visitReason">Reason for Visit *</label>
+                                <textarea id="visitReason" rows="3" required placeholder="Briefly describe your symptoms or requirements..."></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-accent full" style="width: 100%; padding: 1rem; font-size: 1.125rem;">Confirm Appointment</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div class="text-center">
+                <span class="badge mb-4">Patient Feedback</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Trusted by thousands.</h2>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-muted">"Booking an appointment was incredibly smooth. I didn't have to wait on hold, and I got a text confirmation immediately. The clinic staff had all my details ready!"</p>
+                    <div class="user-info">
+                        <div class="avatar">SJ</div>
+                        <div>
+                            <h4 style="font-size: 1rem;">Sarah Jenkins</h4>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Skin Treatment</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <p class="text-muted">"Very modern setup. I received a calendar invite for my physio session and a reminder the day before. Made managing my schedule so much easier."</p>
+                    <div class="user-info">
+                        <div class="avatar">MC</div>
+                        <div>
+                            <h4 style="font-size: 1rem;">Mark Collins</h4>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Physiotherapy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-muted">"Highly professional service. The digital intake form saved me 15 minutes in the waiting room. Best clinic experience I've had in years."</p>
+                    <div class="user-info">
+                        <div class="avatar">EW</div>
+                        <div>
+                            <h4 style="font-size: 1rem;">Elena Woods</h4>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">General Consult</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contact" style="background-color: var(--bg-card);">
+        <div class="container">
+            <div class="text-center mb-8">
+                <span class="badge mb-4">Location</span>
+                <h2 style="font-size: 2.5rem;">Visit the Clinic</h2>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-cards">
+                    <div class="contact-card">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h4>Clinic Address</h4>
+                            <p class="text-muted mt-1">100 Healthcare Avenue, Suite 400<br>Innovation District, CA 90210</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <h4>Contact Details</h4>
+                            <p class="text-muted mt-1">Phone: +1 (800) 123-4567<br>Email: support@growthos.demo</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <div>
+                            <h4>Instant Chat</h4>
+                            <p class="text-muted mt-1">Available 24/7 via WhatsApp automation.</p>
+                            <a href="#" class="btn btn-outline mt-2" style="padding: 0.35rem 0.75rem; font-size: 0.875rem;">Message Us</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0192809117625!2d-122.40133402431711!3d37.79425421132711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858061e860bc05%3A0xc32537c352ed08f3!2sFinancial%20District%2C%20San%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1689163625412!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fa-solid fa-heart-pulse"></i> Growth OS
+            </div>
+            <p style="max-width: 400px; text-align: center;">The leading operating system for modern clinics, real estate, and service businesses.</p>
+            <div style="display: flex; gap: 1.5rem; margin-top: 1rem;">
+                <a href="#" style="font-size: 1.5rem;"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" style="font-size: 1.5rem;"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" style="font-size: 1.5rem;"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <p style="margin-top: 2rem; font-size: 0.875rem; opacity: 0.6;">&copy; 2026 Growth OS Systems. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <a href="#" class="whatsapp-float" title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Appointment Received!</h3>
+            <p class="text-muted mb-4">Your appointment request has been successfully logged into the Growth OS CRM. Our clinic team will contact you shortly to confirm your time slot.</p>
+            <button class="btn btn-primary" onclick="closeModal()" style="width: 100%;">Return to Home</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Mobile Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        const navbar = document.getElementById('navbar');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = navToggle.querySelector('i');
+            if(navLinks.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        });
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navToggle.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
+
+        // 2. Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 3. Form handling, Validation & Local Storage Simulation
+        const form = document.getElementById('appointmentForm');
+        const dateInput = document.getElementById('prefDate');
+        
+        // Prevent booking dates in the past
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Extract Data
+            const formData = {
+                id: 'APT-' + Math.floor(Math.random() * 100000),
+                name: document.getElementById('patientName').value,
+                phone: document.getElementById('patientPhone').value,
+                email: document.getElementById('patientEmail').value,
+                service: document.getElementById('serviceType').value,
+                date: document.getElementById('prefDate').value,
+                reason: document.getElementById('visitReason').value,
+                status: 'Pending',
+                timestamp: new Date().toLocaleString()
+            };
+
+            // Simulate saving to CRM (Local Storage)
+            let crmData = JSON.parse(localStorage.getItem('growthOS_Leads')) || [];
+            crmData.push(formData);
+            localStorage.setItem('growthOS_Leads', JSON.stringify(crmData));
+            
+            console.log("New Lead Injected into Growth OS CRM: ", formData);
+
+            // Trigger Success UI
+            openModal();
+            
+            // Reset Form
+            form.reset();
+        });
+
+        // 4. Modal Functions
+        const modal = document.getElementById('successModal');
+        
+        function openModal() {
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        // Close modal on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // 5. Pre-fill Booking form from Service Cards
+        function prefillBooking(serviceValue) {
+            const selectElement = document.getElementById('serviceType');
+            selectElement.value = serviceValue;
+            
+            // Smooth scroll to form
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            
+            // Highlight the select box briefly to show it changed
+            setTimeout(() => {
+                selectElement.focus();
+            }, 800);
+        }
+    </script>
+</body>
+</html>
